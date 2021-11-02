@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.danieloskarsson.kotlin.plugin'
 }
 
 android {
@@ -41,3 +42,24 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+
+//noinspection UnnecessaryQualifiedReference
+task "kotlinTask" (type: tasks.ReadXLSXWriteXML) {
+    group 'Category'
+    description 'Description'
+}
+
+class PrintClass implements Plugin<Project> {
+    @Override
+    void apply(Project project) {
+        println("Hello from Gradle plugin!")
+
+        project.task("gradleTask") {
+            doFirst {
+                println("Hello from Gradle task!")
+            }
+        }
+    }
+}
+
+apply plugin: PrintClass
